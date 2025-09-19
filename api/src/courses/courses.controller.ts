@@ -1,9 +1,11 @@
 import IController from '../common/types/controller.interface';
 import express, { Request, Response, Router } from 'express';
+import trpc from '../trpc';
 
 class CoursesController implements IController {
   path = '/courses';
-  router: Router = express.Router();
+  router: any;
+
   private courses = [
     {
       id: '11111111-1111-1111-1111-111111111111',
@@ -33,6 +35,9 @@ class CoursesController implements IController {
 
   constructor() {
     this.initializeRoutes();
+    this.router = trpc.router({
+      findAll: trpc.procedure.query(() => this.courses),
+    });
   }
 
   private initializeRoutes = () => {
