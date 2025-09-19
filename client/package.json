@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "@first_trpc/client",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,6 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@first_trpc/api": "workspace:*",
+    "@tanstack/react-query": "^5.89.0",
+    "@trpc/client": "^11.5.1",
+    "@trpc/react-query": "^11.5.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },

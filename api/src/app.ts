@@ -1,21 +1,25 @@
 import express from 'express';
-import IController from './common/types/controller.interface';
+import * as trpcExpress from '@trpc/server/adapters/express';
+import trpcRouter from './trpc';
 
 class App {
   private app: express.Application;
   private readonly port: number;
 
-  constructor(port: number, controllers: IController[]) {
+  constructor(port: number) {
     this.app = express();
     this.port = port;
 
-    this.initializeRoutes(controllers);
+    this.initializeRoutes();
   }
 
-  private initializeRoutes = (controllers: IController[]) => {
-    controllers.forEach((controller) => {
-      this.app.use('/api', controller.router);
-    });
+  private initializeRoutes = () => {
+    this.app.use(
+      '/trpc',
+      trpcExpress.createExpressMiddleware({
+        router: trpcRouter,
+      }),
+    );
   };
 
   listen = () => {
